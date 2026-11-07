@@ -1,0 +1,36 @@
+# Private, single-user deployment. Use compose project sdp-hermes-personal.
+# The server operator supplies .env; no application port is published.
+services:
+  agent:
+    build:
+      context: .
+    env_file: .env
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 45s
+    mem_limit: 2g
+    memswap_limit: 2g
+    cpus: 1.5
+    pids_limit: 512
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - agent-data:/home/agent/.hpa
+      - hermes-data:/home/agent/.hermes
+      # Operator-only, gitignored migration staging, read-only in the container.
+      - ./.transfer:/run/hpa-transfer:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+    healthcheck:
+      test: [CMD, /app/.venv/bin/hpa, status]
+      interval: 30s
+      timeout: 10s
+      start_period: 90s
+      retries: 5
+volumes:
+  agent-data:
+  hermes-data:

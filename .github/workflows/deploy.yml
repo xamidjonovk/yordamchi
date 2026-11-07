@@ -1,0 +1,31 @@
+name: Deploy private agent
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: hermes-personal-production
+  cancel-in-progress: false
+jobs:
+  deploy:
+    # Explicit opt-in after initial migration and secrets are ready.
+    if: vars.HPA_VPS_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 40
+    steps:
+      - name: Deploy the exact commit through the project-scoped broker
+        env:
+          SDP_SSH_KEY: ${{ secrets.SDP_SSH_KEY }}
+          SDP_KNOWN_HOSTS: ${{ secrets.SDP_KNOWN_HOSTS }}
+          SDP_HOST: ${{ secrets.SDP_HOST }}
+          SDP_USER: ${{ secrets.SDP_USER }}
+        run: |
+          set -euo pipefail
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SDP_SSH_KEY" > ~/.ssh/sdp_deploy
+          chmod 600 ~/.ssh/sdp_deploy
+          printf '%s\n' "$SDP_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/sdp_deploy -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            -o ServerAliveInterval=30 "$SDP_USER@$SDP_HOST" "deploy $GITHUB_SHA"

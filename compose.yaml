@@ -1,0 +1,19 @@
+services:
+  agent:
+    build: .
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 45s
+    volumes:
+      - agent-data:/home/agent/.hpa
+      - hermes-data:/home/agent/.hermes
+    healthcheck:
+      test: ["CMD", "/app/.venv/bin/hpa", "status"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 3
+    # No public control port: Telegram is the user interface.
+volumes:
+  agent-data:
+  hermes-data:

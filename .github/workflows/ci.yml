@@ -1,0 +1,40 @@
+name: Portable agent checks
+on: [push, pull_request]
+jobs:
+  web-base:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-2025, macos-15]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e ".[dev]"
+      - run: python -m pytest tests/test_web.py -q
+      - run: python scripts/privacy_scan.py
+      - run: python -m playwright install --with-deps chromium
+      - run: python scripts/verify-web-ui.py
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-2025, macos-15]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -e ".[dev,calls]"
+      - run: python -m pytest -q
+      - run: python -m build
+      - run: python -c "from hermes_personal_agent.voice_service import live_config; print('voice imports OK')"
+  docker-build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose config --quiet
+      - run: docker compose build

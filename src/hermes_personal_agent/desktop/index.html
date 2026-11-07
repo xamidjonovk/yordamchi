@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'">
+  <title>Shaxsiy yordamchi</title>
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <a class="brand" href="#overview" aria-label="Yordamchi bosh sahifasi">
+        <span class="brand-mark"><svg viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M5 12v4m6-10v16m6-13v10m6-7v4" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
+        <span>Yordamchi<span class="brand-sub">Siz uchun</span></span>
+      </a>
+      <nav id="navigation" aria-label="Asosiy menyu"></nav>
+      <div class="sidebar-note"><span class="connection-dot"></span><span id="connection-note">Xizmatlar tekshirilmoqda</span></div>
+      <div class="profile"><span class="avatar">K</span><div><strong>Foydalanuvchi</strong><span>Shaxsiy yordamchi</span></div></div>
+    </aside>
+    <main class="workspace">
+      <header class="topbar"><span id="breadcrumb">Boshqaruv stoli</span><div class="topbar-right"><span id="today-label"></span><span class="timezone">Toshkent · UTC+5</span><button class="icon-button" data-act="refresh" aria-label="Ma’lumotlarni yangilash" title="Yangilash" id="refresh-button"></button></div></header>
+      <div class="content-scroll" id="content-scroll">
+        <div class="page-heading"><div><h1 id="page-title">Boshqaruv stoli</h1><p id="page-description">Yordamchingiz, rejalaringiz va xotirangiz — bir joyda.</p></div><div class="environment-switch" role="group" aria-label="Boshqariladigan muhit"><button data-act="select-env" data-env="local" class="selected">Shu kompyuter</button><button data-act="select-env" data-env="server">VPS server</button></div></div>
+        <div id="operation" aria-live="polite"></div>
+        <section id="runtimes" class="runtimes" aria-label="Ishlash muhitlari"></section>
+        <div id="environment-error" aria-live="polite"></div>
+        <section id="page" aria-label="Boshqaruv mazmuni"><div class="loading-surface"><div></div><div></div><div></div></div></section>
+        <footer class="page-footer"><span id="last-update">Haqiqiy holat olinmoqda…</span><span>Oynani yopish yordamchini to‘xtatmaydi.</span></footer>
+      </div>
+    </main>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <dialog id="confirm-dialog"><form method="dialog"><div class="dialog-symbol" id="confirm-symbol"></div><h2 id="confirm-title"></h2><p id="confirm-text"></p><div class="actions"><button value="cancel" class="button">Bekor qilish</button><button value="confirm" class="button danger">Tasdiqlash</button></div></form></dialog>
+  <script src="app.js"></script>
+</body>
+</html>

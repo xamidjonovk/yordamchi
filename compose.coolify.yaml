@@ -1,0 +1,29 @@
+# Git-based Coolify Compose. No port or proxy is needed for the Telegram agent.
+# First deploy stays in standby; turn HPA_AUTOSTART on only after cutover.
+services:
+  agent:
+    build:
+      context: .
+    entrypoint: ["/app/scripts/coolify-entrypoint.sh"]
+    environment:
+      HPA_AUTOSTART: "${HPA_AUTOSTART:-false}"
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 45s
+    mem_limit: 2g
+    cpus: 1.5
+    pids_limit: 512
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    volumes:
+      - agent-data:/home/agent/.hpa
+      - hermes-data:/home/agent/.hermes
+    healthcheck:
+      test: ["CMD", "/app/.venv/bin/hpa", "status"]
+      interval: 30s
+      timeout: 10s
+      start_period: 90s
+      retries: 5
+volumes:
+  agent-data:
+  hermes-data:
