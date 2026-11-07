@@ -1,4 +1,4 @@
-# Tekshiruv holati — 0.5.0
+# Tekshiruv holati — 0.5.1
 
 Sana: **2026-11-07**, vaqt zonasi **Asia/Tashkent**. Barcha yangi sinovlar shaxsiy Telegram/VPS nusxasidan alohida bajarildi.
 

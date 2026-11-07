@@ -22,7 +22,7 @@ def install_skill():
     body=f'''---
 name: hpa-personal-agent
 description: Manage personal knowledge, Telegram and exact reminders.
-version: 0.5.0
+version: 0.5.1
 author: Instance owner
 ---
 

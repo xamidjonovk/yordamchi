@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hermes-personal-agent"
-version = "0.5.0"
+version = "0.5.1"
 description = "A personal Telegram voice agent with Hermes and local evidence-based memory"
 readme = "README.md"
 requires-python = ">=3.11,<3.14"

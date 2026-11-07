@@ -94,6 +94,7 @@ def main():
                         page.screenshot(path=str(output/f'wizard-step-{previous}-390.png'),full_page=True)
                         if previous==1:page.locator('#w-provider').select_option('openai-codex')
                     assert not errors,errors
+                    page.unroute_all(behavior='wait')
                     browser.close();print(json.dumps({'ok':True,'external_logins':'simulated','local_profile_voice_jobs':'real API','widths':[1440,390,768],'js_errors':errors}))
             finally:process.terminate();process.wait(timeout=15)
 

@@ -81,7 +81,7 @@ def telegram_client():
     from telethon import TelegramClient
     c = credentials()
     return TelegramClient(str(STATE / "telegram"), int(c["api_id"]), c["api_hash"],
-        device_model="Hermes Personal Agent", system_version=os.name, app_version="0.5.0",
+        device_model="Hermes Personal Agent", system_version=os.name, app_version="0.5.1",
         flood_sleep_threshold=0)
 
 
