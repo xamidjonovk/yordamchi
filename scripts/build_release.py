@@ -17,6 +17,7 @@ def build(root=None):
     files=[]
     for name in ['README.md','LICENSE','SECURITY.md','PRODUCT.md','DESIGN.md','pyproject.toml','uv.lock','Dockerfile','compose.yaml','compose.coolify.yaml','docker-compose.prod.yml','.dockerignore','.gitignore','.gitattributes','.env.example','install.cmd','start-web.cmd']:
         files.append(root/name)
+    if (root/'.impeccable/design.json').is_file():files.append(root/'.impeccable/design.json')
     for directory in ['src','scripts','tests','docs','.github']:
         files.extend(p for p in (root/directory).rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix not in {'.pyc','.pyo'})
     archive=output/f'hermes-personal-agent-{version}.zip'

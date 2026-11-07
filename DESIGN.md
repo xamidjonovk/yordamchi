@@ -193,6 +193,8 @@ components:
 
 A futuristic Jarvis-like personal dashboard in Operate mode: dark petrol surfaces, cyan action cues, familiar forms and one perspective-projected 3D nucleus. Display typography gives the browser surface its identity while local interface fonts keep daily reading and entry practical.
 
+The five-step setup wizard, daily dashboard and calendar extend the same browser system. Their visual language is ordinary forms, ruled records and explicit service state; the animated nucleus remains confined to conversation.
+
 The browser is the primary surface. The optional legacy desktop retains its earlier pale Personal Control Desk system. Browser tokens are prefixed `web-`; existing unprefixed tokens belong only to the legacy desktop. The two palettes and component scopes must not be mixed. This document records built source, rather than an unimplemented visual proposal.
 
 **Key Characteristics:**
@@ -298,6 +300,10 @@ A fixed left rail is 232px wide; the workspace offsets by the same amount. The t
 
 At 1150px and below, the rail becomes 200px and main padding 28px. At 940px and below, the rail becomes a 76px icon column, while knowledge panels stack. At 700px and below, navigation moves above the workspace with visible labels; main padding becomes 25px by 20px, the chat layout stacks, and profile fields become one column. At 1600px and above, the chat context column and message region grow.
 
+The setup wizard places a five-item numbered progress list beside its form (200px progress column, up to 800px body, 32px gap). At 1150px and below the progress column narrows to 165px with an 18px gap; at 940px and below it becomes a horizontal five-step strip above the form. Form insets reduce from 32px to 24px, then 20px on mobile. Current and preceding steps retain distinct states without making the progress strip a shortcut around validation.
+
+The dashboard uses a ruled three-part summary strip above two work panels. Its summary items wrap on mobile; records remain rows. The calendar and creation form use a 1.4fr/1fr split with a 280px form minimum and 26px gap, stacking at 1150px and below. The month always retains seven equal weekday columns; day buttons reduce from a 62px minimum height to 48px on mobile. All six main destinations fit a three-column, two-row grid at 700px and below, with visible labels and a 52px minimum navigation height.
+
 The conversation-first composition and exact page regions are recorded in `.impeccable/web-surface.md`. Browser delivery evidence covers 390px, 768px and 1440px; those are verification widths, not CSS breakpoints.
 
 ### Legacy desktop — retained reference
@@ -352,11 +358,31 @@ Dark fields use a 1px `#3a5660` border, control corners and 11px by 13px padding
 
 #### Navigation
 
-Four native buttons change the visible section. The selected destination carries `aria-current="page"`, cyan text and a lighter petrol background. The 940px icon rail retains its text in the DOM; mobile restores visible labels above the content. Navigation icons are inline SVG.
+Six native buttons change the visible section: Bosh sahifa, Kalendar, Suhbat, Bilimlarim, Menga moslashtirish and Sozlash ustasi. The selected destination carries `aria-current="page"`, cyan text and a lighter petrol background. The 940px icon rail retains its text in the DOM; mobile restores visible labels above the content. Navigation icons are inline SVG.
 
 #### Panels, records and tags
 
 Work panels use surface tone, a fine border, 12px corners and 26px padding, reducing to 20px on mobile. Search results and source records are ruled rows with wrapped source identifiers. Setup tags are compact bordered labels. Empty states explain the absence of records in text.
+
+#### Setup wizard
+
+The five steps are Profilingiz, AI hisobingiz, Telegram, Ovoz and Yakunlash. Numbered circles, a raised current-step surface and cyan completed-step circles indicate position; the active item carries `aria-current="step"`. Moving between steps focuses the new heading. Back controls remain available, and the Telegram step offers an explicit skip action.
+
+**The Confirmed Next Rule.** Advance after a successful save or backend-confirmed state. AI connection must match the currently selected provider before Next is enabled; an existing connection to another provider does not qualify. Telegram Next requires confirmed connection. Owner lookup failures leave the owner form available for correction and retry. Finish stays disabled until the AI response check succeeds. Progress styling describes visited steps rather than independent proof of connection.
+
+Keep official authorization links and codes within a dedicated feedback area, with account requirements and recovery text adjacent to the action. The setup entry query survives removal of the login token from the address bar, so opening the installer link reaches the wizard. Passwords and temporary codes use appropriate concealed fields and clear after submission. Browser voice controls explain support limits; unavailable speech recognition offers typing or Chrome/Edge, denied microphone permission offers a browser-permission check or typing, and failed recognition offers retry or typing.
+
+#### Dashboard and message inbox
+
+The summary shows actual scheduled-job count, unseen-message count and Telegram runtime state. Starting and ready are distinct labels. The offline notice explains that plans remain saved and reminders wait for the service. Start and stop request actions refresh status rather than immediately claiming success.
+
+Upcoming jobs use compact ruled rows with job text, kind, date, time and state; cancellation belongs to scheduled rows. Inbox entries show sender, wrapped message text, selection reason and timestamp. The Ko‘rildi action changes local seen state; seen entries become quieter at 75% opacity and lose that action. The explanation makes clear that keyword matches, mentions and manually refreshed unread messages are a selected inbox, not complete chat history. Empty states provide a useful next action rather than synthetic records.
+
+#### Browser calendar
+
+Use a Monday-first month, explicit Uzbek month names and the configured timezone beside the month and date-time field. Today receives a cyan border and label; selection adds the navigation-active surface and an outline, with `aria-pressed` on real date buttons. Scheduled-job counts sit below their dates. Selecting a day updates its agenda and seeds the form at 09:00, retaining focus on the selected date.
+
+The creation form offers Telegram reminders, AI tasks and calls, a local date-time, text and once/daily/weekly repeat options. Saving refreshes real rows; copy states that execution requires the service. Missed calls do not ring later. Month navigation changes the visible month without inventing adjacent-month records.
 
 #### Nucleus and motion
 
@@ -411,6 +437,8 @@ Inline notices explain recovery; temporary toasts confirm completed actions. Pro
 - **Do** pair service state with text derived from the backend.
 - **Do** preserve visible keyboard focus, source evidence and entered form values during polling.
 - **Do** honor reduced motion and retain a manual animation control.
+- **Do** keep selected provider, confirmed connection and enabled progression consistent.
+- **Do** show timezone, inbox selection reason and service recovery text where the action happens.
 
 #### Don't:
 
@@ -418,6 +446,8 @@ Inline notices explain recovery; temporary toasts confirm completed actions. Pro
 - **Don't** invent operational charts, percentages or progress values.
 - **Don't** carry the legacy desktop mobile exclusion or pale palette into the browser.
 - **Don't** load remote display fonts when the bundled font is available.
+- **Don't** imply that a saved plan is already executing or that a service-start request means it is ready.
+- **Don't** treat simulated authorization or seeded visual-test messages as proof of a live external account.
 
 ### Legacy desktop — retained reference
 

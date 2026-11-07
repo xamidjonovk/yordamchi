@@ -17,6 +17,7 @@ jobs:
       - run: python scripts/privacy_scan.py
       - run: python -m playwright install --with-deps chromium
       - run: python scripts/verify-web-ui.py
+      - run: python scripts/verify-onboarding-ui.py
   tests:
     strategy:
       fail-fast: false

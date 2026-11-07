@@ -28,3 +28,9 @@ Uzbek interface; configurable introduction. User requested a futuristic Jarvis-l
 - Preserve source evidence and make retrieval inspectable.
 - Keep secrets outside source and browser responses.
 - Honor reduced motion, keyboard navigation and small screens.
+
+## Integrated onboarding and planning — 0.5.0
+
+The installer prepares its own Hermes installation and dependency home before opening a five-step Uzbek browser wizard. The wizard handles owner profile, OpenAI/Anthropic OAuth, Telegram code/2FA and owner verification, browser/Gemini voice, and a real model-response check before completion. Anthropic OAuth requires Max plus extra credits. No automatic paid-provider fallback.
+
+The home dashboard shows real scheduler jobs and a bounded local Telegram message inbox. The month calendar creates/cancels the existing durable jobs; the service is the sole scheduler writer while running. Inbound important-message rules use configured keywords or mentions; manual sync fetches a bounded unread preview without marking Telegram read. Browser walkthroughs simulate external account logins, never claim live OAuth/Telegram success.

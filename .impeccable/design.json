@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-07T06:12:55.288821+00:00",
+  "title": "Design System: Yordamchi",
+  "extensions": {
+    "shadows": [
+      {
+        "name": "web-protected-dialog",
+        "value": "0 20px 70px #0006",
+        "purpose": "Protected browser dialog; ordinary work panels stay flat."
+      }
+    ],
+    "motion": [
+      {
+        "name": "web-control-transition",
+        "value": "background 160ms ease, border-color 160ms ease",
+        "purpose": "Button feedback; disabled under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "web-mobile",
+        "value": "700px"
+      },
+      {
+        "name": "web-icon-rail",
+        "value": "940px"
+      },
+      {
+        "name": "web-compact",
+        "value": "1150px"
+      },
+      {
+        "name": "web-wide",
+        "value": "1600px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "refersTo": "web-button-primary",
+      "description": "Browser action with visible keyboard focus and disabled feedback.",
+      "html": "<button class=\"ds-button-primary\">Saqlash</button>",
+      "css": ".ds-button-primary{border:1px solid var(--line,#29434b);border-radius:8px;padding:10px 16px;min-height:44px;font-size:15px;font-family:Interface,system-ui,sans-serif;cursor:pointer;transition:background .16s,border-color .16s;background:var(--cyan,#83e6d2);color:#082b26;border-color:var(--cyan,#83e6d2);font-weight:600;}.ds-button-primary:hover{background:#b0f4e7;border-color:#b0f4e7;}.ds-button-primary:focus-visible{outline:2px solid var(--cyan,#83e6d2);outline-offset:4px;}.ds-button-primary:disabled{opacity:.5;cursor:wait}@media(prefers-reduced-motion:reduce){.ds-button-primary{transition:none}}"
+    },
+    {
+      "name": "Secondary button",
+      "kind": "button",
+      "refersTo": "web-button-secondary",
+      "description": "Browser action with visible keyboard focus and disabled feedback.",
+      "html": "<button class=\"ds-button-secondary\">Yangilash</button>",
+      "css": ".ds-button-secondary{border:1px solid var(--line,#29434b);border-radius:8px;padding:10px 16px;min-height:44px;font-size:15px;font-family:Interface,system-ui,sans-serif;cursor:pointer;transition:background .16s,border-color .16s;background:var(--raised,#122b32);color:var(--ink,#edf5f6);}.ds-button-secondary:hover{background:#1d3b44;border-color:#61838e;}.ds-button-secondary:focus-visible{outline:2px solid var(--cyan,#83e6d2);outline-offset:4px;}.ds-button-secondary:disabled{opacity:.5;cursor:wait}@media(prefers-reduced-motion:reduce){.ds-button-secondary{transition:none}}"
+    },
+    {
+      "name": "Quiet button",
+      "kind": "button",
+      "refersTo": "web-button-quiet",
+      "description": "Browser action with visible keyboard focus and disabled feedback.",
+      "html": "<button class=\"ds-button-quiet\">Orqaga</button>",
+      "css": ".ds-button-quiet{border:1px solid var(--line,#29434b);border-radius:8px;padding:10px 16px;min-height:44px;font-size:15px;font-family:Interface,system-ui,sans-serif;cursor:pointer;transition:background .16s,border-color .16s;background:transparent;color:var(--ink,#edf5f6);font-size:12px;}.ds-button-quiet:hover{background:#1d3b44;border-color:#61838e;}.ds-button-quiet:focus-visible{outline:2px solid var(--cyan,#83e6d2);outline-offset:4px;}.ds-button-quiet:disabled{opacity:.5;cursor:wait}@media(prefers-reduced-motion:reduce){.ds-button-quiet{transition:none}}"
+    },
+    {
+      "name": "Labeled field",
+      "kind": "input",
+      "refersTo": "web-input",
+      "description": "Dark browser field with its label above.",
+      "html": "<label class=\"ds-label\" for=\"ds-name\">Ismingiz</label><input class=\"ds-field\" id=\"ds-name\" placeholder=\"Ismingiz\">",
+      "css": ".ds-label{display:block;color:var(--ink,#edf5f6);font-size:13px;font-weight:550;margin:0 0 8px;font-family:Interface,system-ui,sans-serif;}.ds-field{width:100%;background:#081a20;border:1px solid #3a5660;color:var(--ink,#edf5f6);border-radius:8px;padding:11px 13px;caret-color:var(--cyan,#83e6d2);font-size:15px;font-family:Interface,system-ui,sans-serif;}.ds-field::placeholder{color:#91aeb8}.ds-field:focus-visible{outline:2px solid var(--cyan,#83e6d2);outline-offset:4px;}"
+    },
+    {
+      "name": "Selected destination",
+      "kind": "nav",
+      "refersTo": "web-navigation-active",
+      "description": "A named active browser destination; six destinations become a mobile three-column grid.",
+      "html": "<nav aria-label=\"Ish maydoni\"><button class=\"ds-nav\" aria-current=\"page\">Bosh sahifa</button></nav>",
+      "css": ".ds-nav{border:0;border-radius:8px;padding:13px 12px;min-height:44px;background:#24434a;color:var(--cyan,#83e6d2);font-size:13px;text-align:left;cursor:pointer;font-family:Interface,system-ui,sans-serif;}.ds-nav:hover{background:#1b363e;color:var(--ink,#edf5f6)}.ds-nav:focus-visible{outline:2px solid var(--cyan,#83e6d2);outline-offset:4px;}"
+    },
+    {
+      "name": "Setup tag",
+      "kind": "chip",
+      "refersTo": "web-tag",
+      "description": "Compact, noninteractive setup label.",
+      "html": "<span class=\"ds-tag\">Ulangan</span>",
+      "css": ".ds-tag{display:inline-block;color:var(--cyan,#83e6d2);font-size:11px;padding:5px 9px;border:1px solid var(--line,#29434b);border-radius:6px;font-family:Interface,system-ui,sans-serif;}"
+    },
+    {
+      "name": "Work panel",
+      "kind": "card",
+      "refersTo": "web-surface",
+      "description": "Flat bordered browser work area, reused by the inbox and calendar.",
+      "html": "<section class=\"ds-panel\"><h2>Yaqinlashayotgan ishlar</h2><p>Hozircha reja yo‘q. Kalendardan birinchi eslatmani qo‘shing.</p></section>",
+      "css": ".ds-panel{background:var(--surface,#0d2026);border:1px solid var(--line,#29434b);border-radius:12px;padding:26px;color:var(--ink,#edf5f6);font-family:Interface,system-ui,sans-serif;}.ds-panel h2{font-size:19px;font-weight:550;line-height:1.4;margin:0 0 16px}.ds-panel p{font-size:13px;line-height:1.6;color:var(--muted,#abc2c9);margin:0}@media(max-width:700px){.ds-panel{padding:20px}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Jarvis-like personal dashboard",
+    "overview": "Petrol surfaces, cyan action cues, local interface typography and one conversation nucleus. Setup, the daily dashboard and calendar reuse the existing browser system; the pale legacy desktop keeps its separate token scope.",
+    "keyCharacteristics": [
+      "Backend-confirmed state and useful recovery text",
+      "Five-step Uzbek setup with provider-matched progression",
+      "Real job rows, selected message inbox and timezone-aware calendar",
+      "Six labeled destinations in a three-column mobile grid"
+    ],
+    "rules": [
+      {
+        "name": "State Before Decoration",
+        "body": "Service labels use confirmed state; the nucleus expresses conversation activity, not service health.",
+        "section": "colors"
+      },
+      {
+        "name": "Confirmed Next",
+        "body": "Save or confirm before progression; match the selected AI provider, keep Telegram owner retries available and verify the AI response before Finish.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do preserve visible keyboard focus and entered form values during polling.",
+      "Do show inbox selection reasons, timezone and offline service consequences.",
+      "Do keep the five-step strip readable and mobile navigation labeled."
+    ],
+    "donts": [
+      "Don't mix browser web-prefixed tokens with the legacy desktop palette.",
+      "Don't treat a saved plan or start request as completed execution.",
+      "Don't claim simulated authorization demonstrates live cloud connectivity."
+    ]
+  }
+}

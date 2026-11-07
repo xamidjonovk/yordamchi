@@ -5,10 +5,10 @@
 | Vaqt | O‘qituvchi ko‘rsatadi | Ishtirokchi bajaradi | Natijani tekshirish |
 |---|---|---|---|
 | 0–10 daqiqa | Kod, model va shaxsiy ma’lumot farqi | Talablarni tekshiradi | Brauzer, internet va bo‘sh joy bor |
-| 10–25 | Git clone / Download ZIP | Installer bilan o‘rnatadi | Panel ochiladi |
-| 25–35 | Profil va vaqt zonasi | O‘z maqsadi/uslubini yozadi | Qayta ochganda profil qoladi |
+| 10–25 | Git clone / Download ZIP | Bitta installer va o‘zbekcha usta bilan o‘rnatadi | Panel ochiladi |
+| 25–35 | Ustaning profil va vaqt zonasi qadami | O‘z maqsadi/uslubini yozadi | Qayta ochganda profil qoladi |
 | 35–50 | Qayd va hujjat qo‘shish | 3 ta xavfsiz manba kiritadi | Kalit so‘z bilan manba topiladi |
-| 50–65 | Hermes login va model tanlash | O‘z hisobini ulaydi | Oddiy savolga real javob |
+| 50–65 | Ustada OpenAI/Claude login va model tanlash | Rasmiy sahifada o‘z hisobini ulaydi | Oddiy savolga real javob |
 | 65–75 | RAG va dalil tekshirish | Hujjat bo‘yicha savol beradi | Javobda manba IDsi bor |
 | 75–85 | Mikrofon va javobni o‘qish | Brauzer ruxsatini yoqadi | Matnni tekshirib yuboradi |
 | 85–90 | Maxfiylik, backup, to‘xtatish | Shaxsiy papkasini topadi | Kod va credentialni ajrata oladi |
@@ -32,3 +32,7 @@ O‘zingizga mos yordamchi yarating: bitta profil, o‘qish rejasi, sun’iy loy
 ## Keyingi dars
 
 Telegram’ni shaxsiy akkauntlar bilan ulash, fon o‘rganish, eslatmalar, xizmat sifatida ishlatish va Docker. Login vaqtini tejash uchun haqiqiy credentialni hech qachon umumiy arxivga qo‘shmang.
+
+## 0.5.0 dars oqimi
+
+Hermes’ni qo‘lda o‘rnatishni ko‘rsatmang: `install.cmd`ning o‘zi o‘rnatadi. Sozlash ustasida profil → AI → Telegram → ovoz → haqiqiy javob sinovi ketma-ketligidan foydalaning. API ID/hash olish uchun usta ichidagi yordamni oching. Claude Max + qo‘shimcha kredit shartini OpenAI loginidan ajrating. Keyin kalendarga vazifa kiriting, xizmat o‘chiq holatdagi ogohlantirishni va muhim xabarlar qoidalarini tushuntiring.

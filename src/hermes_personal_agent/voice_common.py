@@ -24,7 +24,9 @@ DEFAULTS = {
     "openai_live_max_minutes": 3,
     "tts_model": "gemini-3.8-flash-tts", "voice_note_replies": True,
     "control_port": 18796, "max_call_minutes": 30, "hermes_timeout_seconds": 300,
-    "hermes_model": "gpt-6.1-terra", "hermes_bin": "", "hermes_home": "",
+    "hermes_model": "gpt-6.1-terra", "hermes_provider": "openai-codex", "hermes_bin": "", "hermes_home": "",
+    "inbox_enabled": False, "important_keywords": "muhim,shoshilinch,urgent,tezkor",
+    "live_voice_enabled": True,
     "semantic_enabled": True,
     "embedding_model": "intfloat/multilingual-e5-small",
     "memory_context_chars": 10000, "session_max_turns": 20, "session_max_hours": 12,
@@ -33,15 +35,16 @@ DEFAULTS = {
 }
 CONFIG_PATH = APP_HOME / "config.json"
 CONFIG = {**DEFAULTS, **(json.loads(CONFIG_PATH.read_text(encoding="utf-8")) if CONFIG_PATH.exists() else {})}
-HERMES_HOME = Path(CONFIG["hermes_home"] or os.environ.get("HERMES_HOME") or (
-    Path(os.environ.get("LOCALAPPDATA", Path.home())) / "hermes" if os.name == "nt" else Path.home() / ".hermes")).expanduser().resolve()
+_legacy_hermes = Path(os.environ.get("LOCALAPPDATA",Path.home()))/'hermes' if os.name=='nt' else Path.home()/'.hermes'
+HERMES_HOME = Path(CONFIG['hermes_home'] or os.environ.get('HERMES_HOME') or
+    (_legacy_hermes if CONFIG_PATH.exists() and 'setup_completed' not in json.loads(CONFIG_PATH.read_text(encoding='utf-8')) else APP_HOME/'hermes-profile')).expanduser().resolve()
 
 
 def find_hermes():
     configured = os.environ.get("HERMES_BIN") or CONFIG["hermes_bin"]
     if configured:
         return Path(configured).expanduser().resolve()
-    candidates = [shutil.which("hermes"), str(HERMES_HOME / "bin" / ("hermes.exe" if os.name == "nt" else "hermes")),
+    candidates = [str(HERMES_HOME / "bin" / ("hermes.exe" if os.name == "nt" else "hermes")), shutil.which("hermes"), str(_legacy_hermes / 'bin' / ('hermes.exe' if os.name=='nt' else 'hermes')),
                   str(Path.home() / ".local/bin/hermes")]
     return Path(next((c for c in candidates if c and Path(c).is_file()), configured or "hermes"))
 
@@ -54,7 +57,7 @@ def save_config(values):
     import tempfile
     # A browser and Telegram service may save unrelated settings concurrently.
     with FileLock(str(CONFIG_PATH) + '.lock', timeout=10):
-        disk = json.loads(CONFIG_PATH.read_text(encoding='utf-8')) if CONFIG_PATH.exists() else {}
+        disk = json.loads(CONFIG_PATH.read_text(encoding='utf-8')) if CONFIG_PATH.exists() else {'hermes_home':str(HERMES_HOME),'setup_completed':False}
         merged = {**DEFAULTS, **disk, **values}
         fd, name = tempfile.mkstemp(prefix='.config-', dir=CONFIG_PATH.parent)
         try:
@@ -78,7 +81,7 @@ def telegram_client():
     from telethon import TelegramClient
     c = credentials()
     return TelegramClient(str(STATE / "telegram"), int(c["api_id"]), c["api_hash"],
-        device_model="Hermes Personal Agent", system_version=os.name, app_version="0.4.0",
+        device_model="Hermes Personal Agent", system_version=os.name, app_version="0.5.0",
         flood_sleep_threshold=0)
 
 

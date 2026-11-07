@@ -48,3 +48,11 @@ Manbalar hech qachon egasi buyrug‘ining o‘rnini bosmaydi. AI suhbat matni va
 ## Masshtab
 
 Hozirgi LLM-Wiki JSON manifest va fayllarni o‘qiydi; SQL/vector server yo‘q. Kichik shaxsiy ombor uchun sodda, tekshirish va ko‘chirish oson. Katta hajm uchun indeks va incremental qidiruv kelajakdagi ish; mavjud `semantic` opsiyasi faol wiki’da semantik qidiruvni yoqmaydi.
+
+## 0.5.0 — birlashtirilgan o‘rnatish
+
+`install.cmd` → `scripts/install.ps1` Python va calls/FFmpeg kutubxonalarini, keyin shaxsiy Hermes runtime’ni tayyorlaydi. `hpa web --setup` brauzerda o‘zbekcha ustani ochadi. Yangi instance Hermes dasturi/dependency va auth profilini bir `HERMES_HOME` ichida saqlaydi; bu launcher uchun zarur.
+
+`setup_wizard.py` CLI OAuth jarayonidan faqat rasmiy havola/kodni ajratadi, xom credential yoki provider logini qaytarmaydi. Telegram login sessiyasi vaqtinchalik runtime lock bilan himoyalangan; kod/2FA/owner qadamlari keyin uziladi. AI modelining haqiqiy javobi tekshirilmaguncha yakunlash ochilmaydi.
+
+`dashboard.py` mahalliy xabar inbox’ini saqlaydi, ishlayotgan xizmatga schedule/cancel so‘rovini yuboradi. Xizmat o‘chiq bo‘lsa supervisor/runtime lock ostida diskka yozadi. Brauzer asosiy xizmat bilan parallel `Store` yozuvchisini yaratmaydi. Xabarlar qoida yoki unread preview sifatida belgilanadi, model ularni mukammal saraladi degan da’vo yo‘q.

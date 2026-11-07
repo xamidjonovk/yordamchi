@@ -11,14 +11,14 @@ TASHKENT = ZoneInfo(CONFIG['timezone'])
 
 
 def now():
-    return datetime.now(TASHKENT)
+    return datetime.now(ZoneInfo(CONFIG['timezone']))
 
 
 def parse_at(value):
     result = datetime.fromisoformat(value.replace("Z", "+00:00"))
     if result.tzinfo is None:
         raise ValueError("Use an ISO datetime including timezone, e.g. +05:00")
-    return result.astimezone(TASHKENT)
+    return result.astimezone(ZoneInfo(CONFIG['timezone']))
 
 
 class Store:

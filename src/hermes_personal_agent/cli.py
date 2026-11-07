@@ -75,8 +75,11 @@ def doctor():
     try:report['ffmpeg']=ffmpeg_path()
     except RuntimeError:report['ffmpeg']=None
     if report['hermes_found']:
-        r=subprocess.run([str(HERMES),'auth','status','openai-codex'],capture_output=True,text=True,timeout=20)
-        report['openai_subscription_connected']='logged in' in r.stdout
+        provider=CONFIG.get('hermes_provider','openai-codex')
+        r=subprocess.run([str(HERMES),'auth','status',provider],capture_output=True,text=True,timeout=20)
+        report['ai_provider']=provider
+        report['ai_login_connected']='logged in' in r.stdout.lower()
+        if provider=='openai-codex':report['openai_subscription_connected']=report['ai_login_connected']
     report['memory']=Knowledge().stats()
     report['memory_backend']='llm-wiki'
     try:report['service']=control()
@@ -126,7 +129,7 @@ def restore(path):
                 raise ValueError('Invalid backup path')
             target=(APP_HOME/name).resolve()
             if APP_HOME not in target.parents:raise ValueError('Invalid backup path')
-            allowed=(name in {'manifest.json','config.json','data/knowledge.sqlite3','data/scheduler.sqlite3','data/sessions.sqlite3'} or
+            allowed=(name in {'manifest.json','config.json','data/knowledge.sqlite3','data/scheduler.sqlite3','data/sessions.sqlite3','data/message-inbox.sqlite3'} or
                      name.startswith('inbox/') or any(name.startswith('data/'+folder+'/') for folder in ['sources','wiki','downloads','vault']))
             if not allowed:raise ValueError('Unexpected file in knowledge backup')
         for name in names:
@@ -146,6 +149,12 @@ def main(argv=None):
     argv=list(sys.argv[1:] if argv is None else argv)
     if hasattr(sys.stdout,'reconfigure'):sys.stdout.reconfigure(encoding='utf-8')
     try:
+        if argv and argv[0]=='setup' and '--terminal' not in argv:
+            from .web_app import main as web_app
+            web_app(['--setup',*argv[1:]]);return
+        if argv==['setup','--terminal']:
+            from .onboarding import setup
+            setup();return
         if argv and argv[0]=='web':
             from .web_app import main as web_app
             web_app(argv[1:]);return

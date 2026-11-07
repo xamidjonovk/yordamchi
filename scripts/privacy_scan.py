@@ -5,6 +5,7 @@ credentials without printing them. A clean scan is evidence, not a guarantee.
 """
 import argparse
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -63,13 +64,17 @@ def scan(root, history=False, known=()):
             if Path(path).name in SENSITIVE_NAMES or '.session' in Path(path).name:
                 findings.append({'path': oid[:12]+':'+path, 'kind':'private-file'})
     else:
-        for file in root.rglob('*'):
-            relative=file.relative_to(root)
-            if any(p in SKIP or p.endswith('.egg-info') for p in relative.parts) or not file.is_file(): continue
-            if file.is_symlink(): findings.append({'path':str(relative),'kind':'symlink'}); continue
-            if file.name in SENSITIVE_NAMES or '.session' in file.name:
-                findings.append({'path':str(relative),'kind':'private-file'})
-            count+=1; findings+=inspect(file.read_bytes(), str(relative), known)
+        design=root/'.impeccable/design.json'
+        if design.is_file():
+            count+=1;findings+=inspect(design.read_bytes(),'.impeccable/design.json',known)
+        for directory,dirs,names in os.walk(root,followlinks=False):
+            dirs[:]=[name for name in dirs if name not in SKIP and not name.endswith('.egg-info')]
+            for name in names:
+                file=Path(directory)/name;relative=file.relative_to(root)
+                if file.is_symlink(): findings.append({'path':str(relative),'kind':'symlink'}); continue
+                if file.name in SENSITIVE_NAMES or '.session' in file.name:
+                    findings.append({'path':str(relative),'kind':'private-file'})
+                count+=1; findings+=inspect(file.read_bytes(), str(relative), known)
     return {'files_checked':count,'findings':findings,'ok':not findings}
 
 if __name__=='__main__':

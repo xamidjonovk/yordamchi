@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hermes-personal-agent"
-version = "0.4.0"
+version = "0.5.0"
 description = "A personal Telegram voice agent with Hermes and local evidence-based memory"
 readme = "README.md"
 requires-python = ">=3.11,<3.14"
@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-calls = ["py-tgcalls==2.3.3", "ntgcalls==2.2.5"]
+calls = ["py-tgcalls==2.3.3", "ntgcalls==2.2.5", "imageio-ffmpeg>=0.6,<1"]
 semantic = ["fastembed>=0.9.1,<1"]
 dev = [
     "pytest>=8,<10",
@@ -35,7 +35,7 @@ hpa = "hermes_personal_agent.cli:main"
 packages = ["src/hermes_personal_agent"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src", "scripts", "tests", "docs", "README.md", "LICENSE", "SECURITY.md", "PRODUCT.md", "DESIGN.md", "start-web.cmd", "pyproject.toml", "uv.lock", "Dockerfile", "compose.yaml", "compose.coolify.yaml", "docker-compose.prod.yml", "install.cmd", ".github", ".env.example", ".dockerignore", ".gitignore", ".gitattributes"]
+include = ["src", "scripts", "tests", "docs", "README.md", "LICENSE", "SECURITY.md", "PRODUCT.md", "DESIGN.md", ".impeccable/design.json", "start-web.cmd", "pyproject.toml", "uv.lock", "Dockerfile", "compose.yaml", "compose.coolify.yaml", "docker-compose.prod.yml", "install.cmd", ".github", ".env.example", ".dockerignore", ".gitignore", ".gitattributes"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

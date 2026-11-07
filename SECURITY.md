@@ -35,3 +35,9 @@ Avval provayderda kalitni bekor qilib, yangisini oling. Telegram sessiyasi chiqs
 ## Dars nusxasi
 
 Eski private loyiha tarixida shaxsiy identifikatorlar bo‘lishi mumkin. Dars uchun `scripts/export_public.py` yaratgan yangi tarixli nusxadan foydalaning. README, fayllar, rasmlar va yangi tarixni tarqatishdan oldin tekshiring. Private repo ham credential saqlash joyi emas.
+
+## Sozlash ustasi
+
+OAuth faqat tanlangan provayderga yuboriladi; xom login chiqishi brauzerga chiqmaydi. Rasmiy login havolasi/vaqtinchalik device code autentifikatsiyalangan local API’da ko‘rsatiladi. Telegram kodi va 2FA paroli formadan yuborilgach maydonlar tozalanadi, ular logga yoki repoga yozilmaydi. Telegram sessiyasi pending login vaqtida bitta runtime lock bilan saqlanadi, vaqt tugaganda yoki server yopilganda uziladi.
+
+Muhim xabar preview’lari instance’dagi `data/message-inbox.sqlite3`da (500 yozuvgacha) saqlanadi. Ular ham shaxsiy ma’lumot; backup va instance papkasini ommaga yubormang. Yangi Telegram loginidan oldin ishlayotgan xizmatni to‘xtating.

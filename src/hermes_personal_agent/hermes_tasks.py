@@ -35,7 +35,7 @@ def subscription_session(session_id):
         with closing(sqlite3.connect((HERMES_HOME / "state.db").as_uri()+"?mode=ro",uri=True,timeout=5)) as db:
             row=db.execute("SELECT model_config FROM sessions WHERE id=?",(session_id,)).fetchone()
         config=json.loads(row[0] or "{}") if row else {}
-        return ((config.get("gateway_runtime") or {}).get("provider") or config.get("provider"))=="openai-codex"
+        return ((config.get("gateway_runtime") or {}).get("provider") or config.get("provider"))==CONFIG.get('hermes_provider','openai-codex')
     except (sqlite3.Error,ValueError): return False
 
 
@@ -88,13 +88,17 @@ async def _run_task(task,session_key,*,learn,source_trust):
     old=await asyncio.to_thread(session_record,session_key) if learn else None
     if old:
         if not await asyncio.to_thread(subscription_session,old['session_id']):
-            return {'ok':False,'error':'Session is outside the subscription route; no fallback was attempted'}
+            # Never resume on another provider. Keep that archive and start a
+            # new session on the provider explicitly selected by the owner.
+            old=None
         # Hermes rejects model changes during resume. Keep the old session in its
         # archive and start a fresh one, with relevant knowledge recalled below.
-        if await asyncio.to_thread(session_model,old['session_id']) != CONFIG['hermes_model']:
+        if old and await asyncio.to_thread(session_model,old['session_id']) != CONFIG['hermes_model']:
             old = None
+    provider=CONFIG.get('hermes_provider','openai-codex')
+    if provider not in {'openai-codex','anthropic'}:return {'ok':False,'error':'Unsupported configured provider'}
     args=[str(HERMES),'chat','--query-file','-','--oneshot','--format','stream-json',
-          '--provider','openai-codex','--model',CONFIG['hermes_model'],'--reasoning','low']
+          '--provider',provider,'--model',CONFIG['hermes_model'],'--reasoning','low']
     if old:
         args+=['--resume',old['session_id']]
     else:
@@ -131,6 +135,8 @@ async def _run_task(task,session_key,*,learn,source_trust):
     env=dict(os.environ,PYTHONIOENCODING='utf-8',PYTHONUTF8='1',HERMES_HOME=str(HERMES_HOME))
     # The owner selected subscription billing; never pass an OpenAI API key on this route.
     env.pop('OPENAI_API_KEY',None)
+    env.pop('ANTHROPIC_API_KEY',None)
+    env.pop('ANTHROPIC_TOKEN',None)
     try:
         process=await asyncio.create_subprocess_exec(*args,stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,cwd=str(ROOT),env=env,creationflags=0x08000000 if os.name=='nt' else 0)

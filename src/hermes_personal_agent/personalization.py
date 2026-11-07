@@ -28,5 +28,8 @@ def update(values):
     if 'timezone' in values:
         try: ZoneInfo(values['timezone'])
         except (ZoneInfoNotFoundError, ValueError): raise ValueError('Vaqt zonasi noto‘g‘ri, masalan Asia/Tashkent') from None
-    save_config({k:v.strip() for k,v in values.items()})
+    updates={k:v.strip() for k,v in values.items()}
+    if 'hermes_model' in updates and updates['hermes_model']!=CONFIG.get('hermes_model'):
+        updates['ai_verified']=False
+    save_config(updates)
     return profile()

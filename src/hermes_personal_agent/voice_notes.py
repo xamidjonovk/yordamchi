@@ -32,6 +32,10 @@ def ffmpeg_path():
     found = shutil.which("ffmpeg")
     if found:
         return found
+    try:
+        import imageio_ffmpeg
+        return imageio_ffmpeg.get_ffmpeg_exe()
+    except (ImportError,RuntimeError):pass
     tools = HERMES_HOME / "tools"
     found = sorted(tools.glob("ffmpeg-*/bin/ffmpeg.exe")) if os.name=='nt' else sorted(tools.glob("ffmpeg-*/bin/ffmpeg"))
     if not found:

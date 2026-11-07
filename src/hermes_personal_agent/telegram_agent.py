@@ -99,6 +99,9 @@ class TelegramAgent:
         return {"ok": True, "voice_message_ids": ids}
 
     async def on_message(self, event):
+        if CONFIG.get('inbox_enabled'):
+            from .dashboard import MessageInbox
+            await asyncio.to_thread(MessageInbox().capture,event)
         if event.is_private and event.sender_id == self.service.owner_id:
             text = event.raw_text.strip()
             if text in {"/call", "/hangup", "/status", '/voice openai', '/voice gemini'}:
@@ -200,6 +203,9 @@ class TelegramAgent:
                     continue
                 task = message.raw_text or ""
                 voice_request = bool(message.voice or message.audio)
+                if voice_request and CONFIG.get('setup_voice_mode')=='browser':
+                    await self.notify('Telegram ovozi ulanmagan. Paneldagi sozlash ustasida Gemini ovozini yoqing.')
+                    continue
                 if message.media:
                     attachment = await self.download(message.chat_id, message.id)
                     if voice_request:
@@ -289,6 +295,15 @@ class TelegramAgent:
                 "untrusted_content": True}
 
     async def operation(self, data):
+        if data.get('op')=='dashboard-inbox':
+            from .dashboard import MessageInbox
+            inbox=MessageInbox()
+            async for dialog in self.client.iter_dialogs(limit=30):
+                if not dialog.unread_count:continue
+                async for message in self.client.iter_messages(dialog.id,limit=min(dialog.unread_count,5)):
+                    if message.out or not message.raw_text:continue
+                    inbox.add(dialog.id,message.id,dialog.name,message.raw_text,message.date.isoformat(),'O‘qilmagan xabar')
+            return {'ok':True,'messages':inbox.rows()}
         op = data.get("op")
         if op == 'settings-update':
             async with self.service.call_lock:

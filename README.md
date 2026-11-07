@@ -2,166 +2,102 @@
 
 # Yordamchi
 
-### Sizni tushunadigan shaxsiy AI markazingiz
+### Bitta installer. O‘zbekcha sozlash ustasi. Shaxsiy AI markazingiz.
 
-**O‘zbekcha · Brauzerda · Shaxsiy xotira · Ovoz · 3D panel**
+**Hermes avtomatik · OpenAI yoki Claude · Telegram · Ovoz · Kalendar · Shaxsiy bilimlar**
 
-[Boshlash](#tez-boshlash) · [Shaxsiylashtirish](#ozingizga-moslashtirish) · [Texnologiyalar](#ichkarida-nima-ishlaydi) · [Dars rejasi](docs/dars-rejasi.md) · [Maxfiylik](SECURITY.md)
+[O‘rnatish](#birinchi-marta-ornatish) · [Sozlash qadamlari](#sozlash-ustasining-5-qadami) · [Web panel](#web-panelda-nimalar-bor) · [Dars rejasi](docs/dars-rejasi.md)
 
-![Yordamchi boshqaruv paneli](docs/dashboard.png)
+![Boshqaruv paneli](docs/dashboard.png)
 
 </div>
 
-Yordamchi — har kim **o‘z kompyuteriga, o‘z hisoblari bilan** o‘rnatadigan shaxsiy assistent. Suhbatlashing, hujjatlaringizni qo‘shing, ma’lumotni manbasi bilan toping va javob uslubini o‘zingizga moslang. Ixtiyoriy Telegram moduli xabarlar, qo‘ng‘iroqlar va eslatmalarni qo‘shadi.
+Yordamchi har kim o‘z kompyuteriga, o‘z hisoblari bilan o‘rnatadigan assistent. **Hermes’ni alohida o‘rnatish yoki Telegramni terminaldan ulash talab qilinmaydi.** Installer Python, kutubxonalar va Hermes’ni tayyorlaydi, keyin brauzerda o‘zbekcha sozlash ustasini ochadi.
 
-> **Eng oson yo‘l:** repozitoriyni yuklab oling → `install.cmd`ni oching → profilingizni kiriting. Panel va mahalliy bilim qidiruvi uchun Telegram, API kaliti yoki pulli hisob kerak emas. AI suhbatiga Hermes va o‘zingizning AI hisobingiz ulanadi.
+Rasmlardagi vazifa va xabarlar — sun’iy dars misollari, haqiqiy shaxsiy yozishmalar emas.
 
-## Birinchi marta ochyapsizmi?
+## Birinchi marta o‘rnatish
 
-1. [**Loyihani ZIP qilib yuklang**](https://github.com/xamidjonovk/yordamchi/archive/refs/heads/main.zip) va arxivni to‘liq oching.
-2. **Windows:** `install.cmd`ni ikki marta bosing. **macOS/Linux:** ochilgan papkada terminaldan `bash scripts/install-web.sh`ni bajaring. Kutubxonalar o‘rnatilib, panel brauzerda ochiladi.
-3. **Menga moslashtirish**da profilingizni yozing, **Bilimlarim**da birinchi qaydni saqlang. AI bilan javoblashish uchun pastdagi [AI ulash bosqichini](#ai-suhbatini-ulash) bajaring.
+1. [**ZIPni yuklab oling**](https://github.com/xamidjonovk/yordamchi/archive/refs/heads/main.zip).
+2. ZIPni **to‘liq oching** va `yordamchi-main` papkasiga kiring.
+3. **Windows:** `install.cmd`ni ikki marta bosing. **macOS/Linux:** shu papkada terminaldan `bash scripts/install.sh`ni bajaring.
+4. O‘rnatish tugashini kuting. **Brauzerda sozlash ustasi avtomatik ochiladi.** Oynani yopmang; birinchi o‘rnatish yuklash tezligiga qarab bir necha daqiqa yoki ko‘proq vaqt olishi mumkin.
+5. Ustadagi qadamlarni bajarib **Keyingi qadam**ni bosing. Qayerdan nima olish har qadam ichida tushuntirilgan.
 
-Keyingi safar Windows’da `start-web.cmd`, macOS/Linux’da `.venv/bin/hpa web` bilan ochasiz. Birinchi o‘rnatish vaqtida terminalni yopmang. Telegram ulashni keyinroq bajarish mumkin.
-
-## Imkoniyatlar
-
-| Imkoniyat | Nima kerak? | Natija |
-|---|---|---|
-| Web panel, 3D yadro, profil | Installer tayyorlaydigan Python muhiti | Brauzerda shaxsiy boshqaruv markazi |
-| Matn/hujjat saqlash va qidirish | Mahalliy disk | Manba IDsi va tegishli matn |
-| AI suhbat va topshiriqlar | Hermes + o‘z ChatGPT/Codex hisobingiz | Profil va bilimlarga tayangan javob |
-| Brauzerda gapirish | Mos brauzer, mikrofon ruxsati | Gap matnga aylanadi; tekshirib yuborasiz |
-| Javobni ovozda o‘qish | Brauzerdagi mavjud ovoz | Matn ovozda o‘qiladi |
-| Telegram va jonli qo‘ng‘iroq | `calls`, alohida inson akkaunti, Telegram API, Gemini kaliti | Telegram orqali matn va ovoz |
-| Avtomatik fakt ajratish, eslatmalar | Ishlayotgan Telegram xizmati + Hermes | Manbali bilimlar va doimiy jadval |
-
-3D yadro XYZ nuqtalarini perspektivada chizadi; tashqi CDN yoki kuchli GPU kerak emas. U tizim yuklanishi grafigi emas. Haqiqiy ulanish holati yonidagi matnda ko‘rsatiladi.
-
-## Tez boshlash
-
-Internet, brauzer, 4 GB yoki ko‘proq RAM va kutubxonalar uchun bo‘sh disk joyi tayyor bo‘lsin. Python **3.11–3.13** qo‘llanadi; installer 3.11 ni tayyorlaydi. Birinchi yuklash internet tezligiga bog‘liq. Administrator huquqi odatda kerak emas.
-
-### 1. GitHub’dan oling
-
-[**ZIPni yuklab olish**](https://github.com/xamidjonovk/yordamchi/archive/refs/heads/main.zip) → arxivni to‘liq oching → `yordamchi-main` papkasiga kiring. Arxiv ichidan bevosita ishga tushirmang. Yoki Git bilan:
+Git bilan olishni xohlasangiz:
 
 ```bash
 git clone https://github.com/xamidjonovk/yordamchi.git
 cd yordamchi
 ```
 
-Bu buyruqlar loyihani `yordamchi` papkasiga yuklaydi. Git bo‘lmasa, yuqoridagi ZIP usuli yetarli.
-
-### 2. Panelni o‘rnating
-
-| Windows | macOS / Linux |
-|---|---|
-| **`install.cmd`**ni ikki marta bosing | Terminalda `bash scripts/install-web.sh` |
-| Qayta ochish: **`start-web.cmd`** | Qayta ochish: `.venv/bin/hpa web` |
+Internet, brauzer, kutubxona va Hermes vositalari uchun bir necha GB bo‘sh disk joyi kerak. Python 3.11 ni installer o‘zi tayyorlaydi. Native qo‘ng‘iroqlar Windows x64, mos Linux va Apple Silicon muhitidagi kutubxonalarga bog‘liq; Intel Mac uchun tanlangan ntgcalls versiyasida cheklov bor. Installer provayder hisobini sizning o‘rningizga yaratmaydi.
 
 ```mermaid
 flowchart LR
-    A["Repo yoki ZIP"] --> B["Installer"] --> C["uv + Python"] --> D["uv.lock bo‘yicha paketlar"] --> E["Brauzer paneli"]
+    A["install.cmd / install.sh"] --> B["Python + kutubxonalar"] --> C["Hermes avtomatik"] --> D["O‘zbekcha sozlash ustasi"]
+    D --> E["Profil"] --> F["AI login"] --> G["Telegram"] --> H["Ovoz"] --> I["Sinov va ishga tushirish"]
 ```
 
-<details>
-<summary>Terminal orqali muqobil usul</summary>
+## Sozlash ustasining 5 qadami
 
-Windows PowerShell:
+| Qadam | Nima qilasiz? | Usta qanday yordam beradi? |
+|---|---|---|
+| **1. Profilingiz** | Ism, vaqt zonasi va javob uslubini yozasiz | O‘zbekcha yorliqlar va misollar |
+| **2. AI hisobingiz** | OpenAI yoki Claude tanlaysiz; rasmiy loginni tasdiqlaysiz | Rasmiy havola va vaqtinchalik kod shu oynada ko‘rinadi; boshqa provayderga o‘tsangiz ulanish qayta tekshiriladi |
+| **3. Telegram** | API ID/hash, yordamchi telefon raqami, kelgan kod, kerak bo‘lsa 2FA paroli va asosiy username | my.telegram.org’da qayerga kirish va nimani ko‘chirish bo‘yicha ochiladigan yo‘riqnoma |
+| **4. Ovoz** | Brauzer ovozi yoki Gemini jonli ovozini tanlaysiz | Mikrofon/ovoz sinovi, Gemini kalitini qayerdan olish va tekshirish |
+| **5. Yakunlash** | AI javobini sinaysiz, muhim xabar qoidalarini tanlaysiz, xizmatni boshlaysiz | Model haqiqiy javob bermaguncha yakunlash ochilmaydi; xizmatning haqiqiy holati bosh sahifada ko‘rsatiladi |
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\install-web.ps1
-```
+![Telegramni sozlash](docs/setup-wizard.png)
 
-uv allaqachon o‘rnatilgan bo‘lsa, barcha tizimlarda:
+### OpenAI hisobini ulash
 
-```bash
-uv sync --frozen --python 3.11
-uv run hpa web
-```
+**AI hisobingiz → OpenAI — ChatGPT / Codex**ni tanlang. **Hisobni ulash**ni bosing. Usta ko‘rsatgan rasmiy OpenAI sahifasini ochib, vaqtinchalik kodni o‘sha yerga kiriting. Login tugagach **Keyingi qadam** ochiladi. Hisobingizda ruxsat etilgan Codex modelini tanlang; provayder limitlari amal qiladi. Parolingiz bu panelga kiritilmaydi.
 
-Brauzerni avtomatik ochmaslik: `uv run hpa web --no-browser`.
-Port band bo‘lsa: `uv run hpa web --port 8790`.
+### Claude hisobini ulash
 
-</details>
+**Anthropic — Claude Max + qo‘shimcha kreditlar**ni tanlang va ko‘rsatilgan shartni o‘qing. Hermes’ning joriy OAuth yo‘li **Claude Max va sotib olingan qo‘shimcha foydalanish kreditlarini** talab qiladi. Oddiy Pro yoki Max’ning bazaviy limiti yetarli emas; qo‘shimcha sarf Anthropic hisobingizdan olinadi. [Rasmiy provayder shartlari](https://hermes-agent.nousresearch.com/docs/integrations/providers).
 
-### 3. Birinchi natijani oling
+Rasmiy login sahifasi bergan vaqtinchalik tasdiqlash kodini usta ichiga kiriting. OAuth credentiallari shaxsiy nusxangizda saqlanadi. Modelni hisobingizda mavjud nomga moslang, masalan `claude-sonnet-4-6`. Usta hech qachon OpenAI xatosida o‘zicha boshqa pulli provayderga o‘tmaydi.
 
-1. **Menga moslashtirish**: ism, til, vaqt zonasi va maqsadingizni yozing.
-2. **Bilimlarim**: `Dars jadvali` sarlavhasi bilan `Python darsi juma kuni 18:00 da` qaydini saqlang.
-3. Qidiruvga `Python` yozing. Matn va manba IDsi ko‘rinishi kerak.
-4. AI ulanganidan so‘ng: `Python darsim qachon? Manbani ko‘rsat.` deb so‘rang.
+### Telegram uchun nimalar kerak?
 
-Panel `http://127.0.0.1:8787`da ishlaydi. Terminaldagi **to‘liq shaxsiy havola** kirish uchun kerak; undagi tokenni ulashmang. Server qayta boshlansa, yangi havola yaratiladi. Brauzerni yopish serverni to‘xtatmaydi; terminalda **Ctrl+C** bosing.
+Asosiy akkauntingizdan **alohida inson Telegram akkaunti**. BotFather boti jonli qo‘ng‘iroq o‘rnini bosmaydi. Ustada **API ID va API Hashni qayerdan olaman?**ni oching: telefon bilan [my.telegram.org](https://my.telegram.org/auth) → **API development tools** → ilova yaratish → ID/hashni ko‘chirish qadamlari bor.
 
-## AI suhbatini ulash
+Kod odatda Telegram ilovasidagi xizmat xabariga keladi. Ikki bosqichli parol yoqilgan bo‘lsa keyingi maydon paydo bo‘ladi. Oxirida **o‘zingizning asosiy @username’ingizni** ko‘rsatasiz; eslatmalar shu akkauntga yuboriladi. Uni yordamchi akkaunt kontaktiga qo‘shib qo‘ying. Xato username’ni tuzatib qayta tasdiqlash mumkin.
 
-Vazifalar Hermes orqali `openai-codex` hisob ulanishiga yuboriladi. Hisobingizda mavjud modelni tanlang; obuna limitlari va provayder shartlari amal qiladi. Bu yo‘nalish OpenAI API kalitini talab qilmaydi. Hech qanday hisob yoki obuna repo bilan tarqatilmaydi.
+Hozir ikkinchi akkaunt yoki Telegram API ma’lumoti bo‘lmasa **Hozircha Telegramsiz**ni tanlab, AI va bilimlar bilan ishlash mumkin. Telegramni keyin **Sozlash ustasi**dan ulang. Bitta Telegram sessiyasini bir vaqtda ikki qurilmada ishga tushirmang.
 
-1. [Rasmiy qo‘llanma](https://hermes-agent.nousresearch.com/docs/getting-started/installation) bo‘yicha Hermes’ni o‘rnating. To‘liq loyiha installerlarida mahkamlangan Hermes commitidan foydalaniladi.
-2. O‘z hisobingizni ulang va loyiha ko‘nikmasini o‘rnating:
+### Ovoz tanlovi
 
-```bash
-hermes auth add openai-codex --no-browser
-hermes auth status openai-codex
-uv run hpa install-skill
-```
+- **Brauzer ovozi:** alohida API kalitisiz panelda gapni matnga aylantirish va javobni o‘qish. Mikrofon ruxsati va o‘zbekcha talaffuz brauzer/tizimga bog‘liq. Brauzer audioni o‘z xizmatiga yuborishi mumkin. Telegram bu rejimda matn bilan ishlaydi.
+- **Gemini:** Telegram ovozli xabarlari va jonli qo‘ng‘iroq. Ustada [Google AI Studio](https://aistudio.google.com/apikey)dan kalit olish tushuntiriladi. Kalit va modelga kirish tekshiriladi. API sarfi OpenAI/Claude obunasidan **alohida**, Google hisobingizga hisoblanadi.
 
-3. **Menga moslashtirish → Hermes modeli**ga hisobingizdagi model nomini kiriting.
-4. `uv run hpa web` bilan panelni qayta ochib oddiy savol yuboring.
+Ovoz/Gemini kaliti ulanishi haqiqiy jonli qo‘ng‘iroq sifati tekshirildi degani emas. Ulangach o‘zingiz sinov qo‘ng‘irog‘ini bajaring.
 
-**Hermes topildi** faqat dastur mavjudligini bildiradi; login yoki model ishlashi haqiqiy javob orqali tasdiqlanadi. Login kodi va parollarni faqat rasmiy login oynasiga kiriting. Model mavjudligi va xarajatlar foydalanuvchi hisobiga bog‘liq.
+## Web panelda nimalar bor?
 
-Hermes vositalar va fayllar bilan ishlay oladi. Topshiriqni aniq yozing; hujjat ichidagi begona ko‘rsatmalar yangi ruxsat hisoblanmaydi. Tashqi amal haqiqiy natija bilan tasdiqlanmaguncha bajarilgan deb hisoblamang.
-
-## Ovoz bilan ishlash
-
-**Gapirish** → mikrofonga ruxsat → matnni tekshirish → **Yuborish**. Mikrofonni to‘xtatish: **Tugatish**. **Javobni o‘qish** belgilansa javob brauzer ovozida o‘qiladi.
-
-Ovozni tanish [hamma brauzerda bir xil ishlamaydi](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition). Chrome/Edge’da sinash mumkin; mavjudlik tizim, til va xizmatga bog‘liq. Brauzer audioni o‘z serveriga yuborishi mumkin. O‘zbekcha ovoz yo‘q bo‘lsa matn rejimidan foydalaning. Web panel navbatma-navbat ovozli suhbat qiladi; uzluksiz jonli audio Telegram qo‘ng‘iroqlari modulida.
-
-## Telegram va jonli qo‘ng‘iroqlar
-
-Bu qism **ixtiyoriy**. Asosiy akkauntingizdan boshqa **inson Telegram akkaunti** kerak; BotFather boti shaxsiy qo‘ng‘iroq o‘rnini bosmaydi. API ID/hash: [my.telegram.org](https://my.telegram.org). Ovoz uchun o‘z Gemini kalitingiz kerak; uning API sarfi AI obunangizdan alohida.
-
-Windows’da to‘liq installer:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\install.ps1
-```
-
-Linux yoki mos Apple Silicon Mac:
-
-```bash
-bash scripts/install.sh
-```
-
-Oldin tayyorlangan muhitda:
-
-```bash
-uv sync --frozen --extra calls
-uv run --extra calls hpa setup
-uv run --extra calls hpa doctor
-uv run --extra calls hpa start
-uv run --extra calls hpa web
-```
-
-**uv qo‘shimchalarni olib tashlashi mumkin:** qo‘ng‘iroq rejimida `uv run --extra calls ...`ni ishlating yoki `.venv` ichidagi `hpa`ni to‘g‘ridan-to‘g‘ri chaqiring. [uv sinxronlash qoidalari](https://docs.astral.sh/uv/concepts/projects/sync/).
-
-Sozlash ustasi: ism → vaqt zonasi → Gemini kaliti → AI login → Telegram API → telefon → login kodi → asosiy akkaunt username’i. Har bir o‘quvchi **faqat o‘z ma’lumotlarini** kiritadi. Kalitlarni `.env.example`ga yozmang.
-
-`hpa status` haqiqiy holatni ko‘rsatadi; `hpa start` qaytishi faqat boshlash so‘ralganini bildiradi. `hpa stop` to‘xtatadi. Uyqudagi kompyuter eslatma bajara olmaydi. Bir Telegram sessiyasini ikki kompyuterda bir vaqtda ishlatmang.
-
-| Tizim / rejim | Moslik |
+| Bo‘lim | Vazifasi |
 |---|---|
-| Web panel | Windows, Linux, macOS; asosiy paketda native qo‘ng‘iroq kutubxonasi yo‘q |
-| Telegram ovozi | `ntgcalls` uchun mos platforma/wheel kerak |
-| Intel Mac qo‘ng‘iroqlari | Mahkamlangan native kutubxona cheklangan; Linux Docker yo‘lidan foydalaning |
-| Docker | `docker compose run --rm agent setup`, keyin `docker compose up -d`; standart Compose Telegram uchun, web port ochmaydi |
-| Eski native desktop | Ixtiyoriy `desktop` paketi; yangi foydalanuvchi uchun web panel qulayroq |
+| **Bosh sahifa** | Yaqinlashayotgan ishlar, yangi muhim xabarlar va xizmat holati; Telegramni boshlash/to‘xtatish |
+| **Kalendar** | Oy ko‘rinishi, kunni tanlash, Telegram eslatmasi, AI vazifasi yoki qo‘ng‘iroq rejalash; bir marta/kunlik/haftalik takror va bekor qilish |
+| **Suhbat** | Profil va bilimlarga tayangan AI muloqoti; mikrofon va javobni ovozda o‘qish; 3D yadro |
+| **Bilimlarim** | Qayd, hujjat, qidiruv va manbalarni boshqarish |
+| **Menga moslashtirish** | Til, uslub, maqsad, tanishtirish va model |
+| **Sozlash ustasi** | Hisob, Telegram va ovozni bir oqimda ulash yoki qayta sozlash |
 
-Yangi o‘zgarishlar Windows’da tekshirilgan. Linux/macOS uchun CI matritsasi bor; bu ish davomida ularning haqiqiy qurilmalarida yangi tekshiruv bajarilmadi. Telefon brauzeriga LAN orqali ulanish hozirgi localhost serverining imkoniyati emas.
+![Kalendar](docs/calendar.png)
+
+Kalendar va eslatmalar **profilingizdagi vaqt zonasi** bilan saqlanadi. Xizmat o‘chiq bo‘lsa reja saqlanadi, ammo bajarilmaydi. O‘tkazib yuborilgan qo‘ng‘iroqlar kechikib jiringlamaydi. Rejalangan AI vazifasi hisobingiz limitidan foydalanadi.
+
+**Muhim xabarlar:** usta yakunida tanlangan kalit so‘zlar (`muhim`, `shoshilinch` va boshqalar) yoki siz tilga olingan yangi xabarlar panelga tushadi. **Telegramdan yangilash** o‘qilmagan xabarlardan cheklangan miqdorda olib keladi; ularni Telegram’da o‘qilgan deb belgilamaydi. **Ko‘rildi** faqat paneldagi belgini o‘zgartiradi. Bu barcha chatlarning to‘liq tarixi yoki mukammal AI saralashi emas.
+
+## Keyingi safar qanday ochaman?
+
+Windows’da **`start-web.cmd`**. macOS/Linux’da loyiha papkasidan **`.venv/bin/hpa web`**. Qayta sozlash uchun paneldagi **Sozlash ustasi**ni oching; hisoblarni almashtirishdan oldin bosh sahifada ishlayotgan Telegram xizmatini to‘xtating.
+
+Panel `127.0.0.1:8787`da ishlaydi, shaxsiy kirish havolasi terminalda chiqadi. Port band bo‘lsa `.venv` ichidagi `hpa web --port 8790`ni ishlating. Brauzerni yopish serverni to‘xtatmaydi; terminalda **Ctrl+C**. Doimiy eslatmalar uchun Telegram xizmati va kompyuter ishlashi kerak.
 
 ## O‘zingizga moslashtirish
 
@@ -184,10 +120,10 @@ Saqlagach **Yangi suhbat**ni boshlang. Ishlayotgan Telegram xizmatini qayta bosh
 Ko‘p faylni terminaldan qo‘shish:
 
 ```bash
-uv run hpa memory ingest "MENING_HUJJATLARIM"
-uv run hpa memory stats
-uv run hpa memory search "loyiha muddati"
-uv run hpa memory source MANBA_ID
+uv run --extra calls hpa memory ingest "MENING_HUJJATLARIM"
+uv run --extra calls hpa memory stats
+uv run --extra calls hpa memory search "loyiha muddati"
+uv run --extra calls hpa memory source MANBA_ID
 ```
 
 Papkani ataylab tanlang; butun uy papkasini yoki parollar saqlangan joyni indekslamang. Namuna fayllar va mashqlar: [shaxsiylashtirish qo‘llanmasi](docs/shaxsiylashtirish.md).
@@ -209,7 +145,7 @@ flowchart LR
 
 Misol: `Loyiha 20-dekabrda tugaydi` qaydini qo‘shing, keyin muddatni so‘rang. Javobdagi manbani tekshiring. Sana o‘zgarsa sanasi ko‘rsatilgan yangi qayd kiriting; qarama-qarshi faktlar bo‘lsa qaysi biri amaldaligini aniq ayting.
 
-**Avtomatik o‘rganish:** Telegram xizmati va Hermes ishlaganda yangi manbalardan dalilli fakt va bog‘lanishlar ajratiladi. `Ulanishlar` orqali yoqiladi/o‘chiriladi. Web panelning o‘zi fon fakt ajratishni boshlamaydi; oddiy matn qidiruvi esa darhol ishlaydi.
+**Avtomatik o‘rganish:** Telegram xizmati va Hermes ishlaganda yangi manbalardan dalilli fakt va bog‘lanishlar ajratiladi. `config.json`dagi `learning_enabled` orqali boshqariladi. Web panelning o‘zi fon fakt ajratishni boshlamaydi; oddiy matn qidiruvi esa darhol ishlaydi.
 
 ```mermaid
 flowchart LR
@@ -249,7 +185,7 @@ flowchart TB
 | **Canvas + 3D matematika** | XYZ nuqtalarini aylantirib, perspektivada tekis ekranga chizadi. |
 | **Web Speech API** | Brauzerda gapni matnga, javobni ovozga aylantiradi. |
 | **Hermes** | Model, suhbat tarixi, ko‘nikma va amaliy vositalarni bog‘laydi. |
-| **ChatGPT/Codex hisob ulanishi** | `openai-codex` orqali o‘z AI hisobingizdan foydalanadi. |
+| **OpenAI / Anthropic OAuth** | Tanlangan hisobga rasmiy login; credentiallar alohida Hermes profilida. Claude yo‘li Max + qo‘shimcha kreditlarni talab qiladi. |
 | **Google GenAI / Gemini** | Telegram’dagi jonli ovoz, transkripsiya va ovoz yaratish. |
 | **Telethon** | Telegram inson akkaunti sessiyasi, chat va xabarlarni boshqaradi. |
 | **py-tgcalls / ntgcalls** | Telegram qo‘ng‘iroq transporti; ixtiyoriy native kutubxonalar. |
@@ -296,9 +232,9 @@ Shaxsiy papka/                ← GitHub’ga yuborilmaydi
 Zaxira olish:
 
 ```bash
-uv run hpa backup "SHAXSIY_BACKUP.zip"
-uv run hpa stop
-uv run hpa restore "SHAXSIY_BACKUP.zip"
+uv run --extra calls hpa backup "SHAXSIY_BACKUP.zip"
+uv run --extra calls hpa stop
+uv run --extra calls hpa restore "SHAXSIY_BACKUP.zip"
 ```
 
 Backup login credentiallarini olmaydi, lekin profil, hujjat va suhbat bilimlari shaxsiy. Uni GitHub’ga yubormang. Restore mavjud ma’lumotni almashtirishi mumkin: avval backup oling, xizmatni to‘xtating. Credentiallarni ham ko‘chiradigan `export-private` vositasini dars arxivi uchun ishlatmang.
@@ -323,15 +259,15 @@ Backup login credentiallarini olmaydi, lekin profil, hujjat va suhbat bilimlari 
 ```bash
 uv sync --frozen --extra dev --extra calls
 uv run --extra dev --extra calls pytest -q
-uv run --extra dev playwright install chromium
-uv run --extra dev python scripts/verify-web-ui.py
-uv run --extra dev python -m build
+uv run --extra dev --extra calls playwright install chromium
+uv run --extra dev --extra calls python scripts/verify-web-ui.py
+uv run --extra dev --extra calls python -m build
 python scripts/privacy_scan.py
 python scripts/privacy_scan.py --history
 python scripts/build_release.py
 ```
 
-Tarqatma: `dist/hermes-personal-agent-0.4.0.zip` va `.sha256`. Yig‘ishdan oldin maxfiylik skani ishlaydi; arxivga `.git` va shaxsiy papkalar kirmaydi. Skan inson tekshiruvini to‘liq almashtirmaydi.
+Tarqatma: `dist/hermes-personal-agent-0.5.0.zip` va `.sha256`. Yig‘ishdan oldin maxfiylik skani ishlaydi; arxivga `.git` va shaxsiy papkalar kirmaydi. Skan inson tekshiruvini to‘liq almashtirmaydi.
 
 Eski tarixda shaxsiy ma’lumot bo‘lsa, uni ommaviy qilmang. Yangi tarixli nusxa:
 
