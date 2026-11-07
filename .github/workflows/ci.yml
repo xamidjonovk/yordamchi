@@ -29,6 +29,10 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m pip install -e ".[dev,calls]"
+      - name: Install FFmpeg for real audio encoding tests
+        run: python -m pip install imageio-ffmpeg==0.6.0
+      - name: Add the bundled FFmpeg to PATH
+        run: python -c "import imageio_ffmpeg,os,pathlib,shutil; p=pathlib.Path(os.environ['RUNNER_TEMP'])/'hpa-ffmpeg'; p.mkdir(exist_ok=True); shutil.copy2(imageio_ffmpeg.get_ffmpeg_exe(),p/('ffmpeg.exe' if os.name=='nt' else 'ffmpeg')); open(os.environ['GITHUB_PATH'],'a').write(str(p)+'\n')"
       - run: python -m pytest -q
       - run: python -m build
       - run: python -c "from hermes_personal_agent.voice_service import live_config; print('voice imports OK')"
